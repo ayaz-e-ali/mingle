@@ -8,7 +8,7 @@ export default function BottomNav() {
     const pathname = usePathname();
 
     return (
-        <div className="flex justify-evenly gap-6 fixed lg:hidden w-full backdrop-blur-sm bg-secondary/20 py-4 bottom-0 ">
+        <div className="flex justify-evenly gap-6 fixed lg:hidden w-full backdrop-blur-lg bg-secondary/20 py-4 bottom-0 ">
             {
                 NavbarLinks.map(item => (
                     <>
