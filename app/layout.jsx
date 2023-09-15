@@ -1,6 +1,7 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
-import Nav from '@/components/Nav';
+import Nav from '@/components/nav/Nav';
+import BottomNav from '@/components/nav/BottomNav';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -13,8 +14,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className='dark'>
       <body className={`space-y-4 ${inter.className}`}>
-        <Nav/>
+        <Nav />
         {children}
+        <BottomNav/>
       </body>
     </html>
   );
