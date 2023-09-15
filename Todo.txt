@@ -1,0 +1,30 @@
+v1.0:
+    authentication 
+    database schema
+    on boarding 
+    widgets:
+        user info 
+        create posts
+        posts widget
+        activity widget
+        suggested widget
+        skeleton
+        --other widgets
+    fetch posts (infinite scroll)
+    like post
+    follow - unfollow user
+    user profile
+    settings
+
+v1.1:
+    email verification for custom authentication
+
+v1.2:
+    groups and communities
+
+v1.3:
+    recomendation
+
+v1.4:
+    direct messages
+    notification system
