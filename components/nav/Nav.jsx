@@ -1,25 +1,40 @@
 import Link from 'next/link';
 import { Button } from '../ui/button';
-import Links from './Links';
+import ThemeToggle from './ThemeToggle';
 import { Input } from '../ui/input';
 import { Search } from 'lucide-react';
 import { NavbarLinks } from '@/constants';
 
 export default function Nav() {
   return (
-    <nav className='py-4 border-b'>
-      <div className='flex flex-col md:flex-row justify-between container'>
+    <nav className='py-3 border-b'>
+      <div className='flex flex-col lg:flex-row justify-between container'>
         <div className="flex space-x-4 items-center justify-center">
-          <Link href={'/'} className='text-2xl font-semibold font-serif w-fit'>
-            <h1>Mingle</h1>
+          <Link href={'/'} className='text-2xl font-semibold w-fit'>
+            <h1 className='tracking-widest transition-colors duration-500'>
+              MING
+              <span className='bg-accent text-accent-foreground p-1 tracking-normal'>
+                LE
+              </span>
+            </h1>
           </Link>
           <div className='relative w-80'>
             <Input placeholder="Search" className='pr-12 pl-4' />
             <Search size={'1.5em'} className='absolute top-0 bottom-0 w-6 h-6 my-auto transition-colors text-neutral-600 hover:text-neutral-400 right-3 cursor-pointer' />
           </div>
         </div>
-        <div className='md:flex hidden justify-center items-center gap-8 '>
-          <Links />
+        <div className='lg:flex hidden justify-center items-center gap-8 '>
+          {NavbarLinks.map(item => (
+            <Link href={item.route} key={item.label} className='flex flex-col items-center hover:text-primary text-primary/70 transition-colors gap-1'>
+              <span >
+                {item.Icon}
+              </span>
+              <span className='text-xs'>
+                {item.label}
+              </span>
+            </Link>
+          ))}
+          <ThemeToggle />
         </div>
       </div>
     </nav>
