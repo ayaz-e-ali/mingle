@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import ThemeToggle from './ThemeToggle';
 import { NavbarLinks } from '@/constants';
-import NavSearch from '../forms/NavSearch';
+import { Input } from '../ui/input';
+import { Search } from 'lucide-react';
 
 export default function Nav() {
   return (
@@ -17,7 +18,10 @@ export default function Nav() {
             </h1>
           </Link>
           <div className='relative w-80'>
-            <NavSearch/>
+            <form action='/search'>
+              <Input name='query' placeholder="Search" className='pr-12 pl-4' />
+              <Search size={'1.5em'} className='absolute top-0 bottom-0 w-6 h-6 my-auto transition-colors text-neutral-600 hover:text-neutral-400 right-3 cursor-pointer' />
+            </form>
           </div>
         </div>
         <div className='lg:flex hidden justify-center items-center gap-8 '>
