@@ -10,10 +10,5 @@ export const NavbarLinks = [
         Icon: <Search size={'1.5rem'} />,
         route: "/search",
         label: "Search",
-    },
-    {
-        Icon: <User2 size={'1.5rem'} />,
-        route: "/profile",
-        label: "Profile",
-    },
+    }
 ];

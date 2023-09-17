@@ -3,6 +3,7 @@ import ThemeToggle from './ThemeToggle';
 import { NavbarLinks } from '@/constants';
 import { Input } from '../ui/input';
 import { Search } from 'lucide-react';
+import UserAvatar from '../auth/UserAvatar';
 
 export default function Nav() {
   return (
@@ -36,6 +37,7 @@ export default function Nav() {
             </Link>
           ))}
           <ThemeToggle />
+          <UserAvatar/>
         </div>
       </div>
     </nav>
