@@ -14,7 +14,9 @@ export default async function OnBoarding() {
 
     else {
         return (
-            <div>Onboarding 😊</div>
+            <main className='container'>
+                <h1 className='text-3xl'>Wellcome to Mingle</h1>
+            </main>
         );
     }
 }
