@@ -56,9 +56,15 @@ export const authOptions = {
         })
     ],
     pages: {
-        signIn: '/auth/signin'
+        signIn: '/auth/signin',
+        newUser: '/onboarding',
     },
     adapter: PrismaAdapter(prisma),
     session: { strategy: 'jwt' },
-    debug: process.env.NODE_ENV === 'production'
+    debug: process.env.NODE_ENV === 'production',
+    theme: {
+        colorScheme: "auto",
+        brandColor: "#fff", // Hex color code
+        buttonText: "#000" // Hex color code
+    }
 };
