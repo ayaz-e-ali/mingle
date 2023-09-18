@@ -16,7 +16,7 @@ export function Post({ post }) {
                 <CardDescription>Description.</CardDescription>
             </CardHeader>
             <CardContent className='grid grid-cols-1'>
-                <Image className='mx-auto w-full col-span-1' objectFit='cover' src={'/FF_KF_PROTOTYPE_FUND_Facebook-2.jpg'} width={500} height={500} alt='vercel' />
+                <Image className='mx-auto w-full col-span-1' src={'/FF_KF_PROTOTYPE_FUND_Facebook-2.jpg'} width={500} height={500} alt='vercel' />
             </CardContent>
             <CardFooter className="flex justify-between">
 
