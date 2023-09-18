@@ -11,13 +11,12 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { Button } from '../ui/button';
 import { Loader } from 'lucide-react';
 
-export default function UserAvatar() {
-    const { data, status } = useSession();
-    const router = useRouter();
+export default function UserAvatar({ user }) {
+    const { status } = useSession();
+
     return (
         status === 'unauthenticated' ?
             <Link href={'api/auth/signin'}> <Button>Login</Button></Link> :
@@ -25,7 +24,7 @@ export default function UserAvatar() {
                 <>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Avatar className='cursor-pointer'> <AvatarImage src={data.user.image} /><AvatarFallback src={data.user.name} /> </Avatar>
+                            <Avatar className='cursor-pointer'> <AvatarImage src={user.image || ''} /><AvatarFallback src={user.name} /> </Avatar>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="w-56">
                             <DropdownMenuLabel>Acount</DropdownMenuLabel>

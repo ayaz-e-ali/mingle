@@ -1,4 +1,4 @@
-const { getServerSession } = require('next-auth');
+import { getServerSession } from 'next-auth';
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -7,13 +7,17 @@ import { prisma } from '@/utils/db';
 import bcrypt from 'bcrypt';
 
 export const getUserFromNextAuth = async () => {
-    const { user } = await getServerSession();
-    const prismaUser = await prisma.user.findUnique({
-        where: {
-            email: user.email
-        }
-    });
-    return prismaUser;
+    try {
+        const { user } = await getServerSession();
+        const prismaUser = await prisma.user.findUnique({
+            where: {
+                email: user.email
+            }
+        });
+        return prismaUser;
+    } catch (error) {
+
+    }
 };
 
 /**@type {import('next-auth').AuthOptions} */

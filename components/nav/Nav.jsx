@@ -4,8 +4,11 @@ import { NavbarLinks } from '@/constants';
 import { Input } from '../ui/input';
 import { Search } from 'lucide-react';
 import UserAvatar from '../auth/UserAvatar';
+import { getUserFromNextAuth } from '@/utils/auth';
 
-export default function Nav() {
+export default async function Nav() {
+  const user = await getUserFromNextAuth()
+
   return (
     <nav className='py-3 border-b'>
       <div className='flex flex-col lg:flex-row justify-between container'>
@@ -37,7 +40,7 @@ export default function Nav() {
             </Link>
           ))}
           <ThemeToggle />
-          <UserAvatar/>
+          <UserAvatar user={user}/>
         </div>
       </div>
     </nav>
