@@ -10,7 +10,7 @@ export default async function Nav() {
   const user = await getUser(true);
 
   return (
-    <nav className='py-3 border-b'>
+    <nav className='py-3 border-b fixed top-0 w-full z-10 bg-background'>
       <div className='flex flex-col lg:flex-row justify-between container'>
         <div className="flex space-x-4 items-center justify-center">
           <Link href={'/'} className='text-2xl font-semibold w-fit'>

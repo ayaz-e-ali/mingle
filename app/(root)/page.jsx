@@ -14,7 +14,7 @@ export default async function Home() {
   };
   return (
     <main className="grid grid-cols-10 container gap-10">
-      <div className="hidden lg:block lg:col-span-3 min-h-[14rem] h-min sticky top-10 space-y-4">
+      <div className="hidden lg:block lg:col-span-3 min-h-[14rem] h-min sticky top-[5.5rem] space-y-4">
         <User user={user} />
         <Card>
           <CardHeader>
@@ -37,7 +37,6 @@ export default async function Home() {
                 </CardDescription>
               </div>
             </Link>
-
           </CardContent>
         </Card>
       </div>
@@ -48,7 +47,7 @@ export default async function Home() {
           ))
         }
       </div>
-      <div className="hidden lg:block lg:col-span-3 h-56 child:h-full sticky top-10">
+      <div className="hidden lg:block lg:col-span-3 h-56 child:h-full sticky top-[5.5rem]">
         <Card>
         </Card>
       </div>
