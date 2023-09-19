@@ -4,10 +4,10 @@ import { NavbarLinks } from '@/constants';
 import { Input } from '../ui/input';
 import { Search } from 'lucide-react';
 import UserAvatar from '../auth/UserAvatar';
-import { getUserFromNextAuth } from '@/utils/auth';
+import { getUser } from '@/utils/auth';
 
 export default async function Nav() {
-  const user = await getUserFromNextAuth()
+  const user = await getUser(true);
 
   return (
     <nav className='py-3 border-b'>
@@ -40,7 +40,7 @@ export default async function Nav() {
             </Link>
           ))}
           <ThemeToggle />
-          <UserAvatar user={user}/>
+          <UserAvatar user={user} />
         </div>
       </div>
     </nav>

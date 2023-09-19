@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 
 /* orange */
 /* @layer base {
@@ -74,7 +74,7 @@
     --ring: 240 5.9% 10%;
     --radius: 0.5rem;
   }
- 
+
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
@@ -97,11 +97,16 @@
     --ring: 240 4.9% 83.9%;
   }
 }
- 
+
+.text-link {
+  @apply text-blue-500 visited:text-neutral-700;
+}
+
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }

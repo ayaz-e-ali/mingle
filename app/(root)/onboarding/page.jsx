@@ -1,4 +1,4 @@
-import { getUserFromNextAuth } from '@/utils/auth';
+import { getUser } from '@/utils/auth';
 import { redirect } from 'next/navigation';
 import OnBoarding from '@/components/forms/OnBoarding';
 
@@ -6,13 +6,13 @@ export default async function OnBoardingPage() {
     let user;
 
     try {
-        user = await getUserFromNextAuth();
+        user = await getUser(true);
     } catch (error) {
         redirect('/');
     }
 
     if (user?.onboarded) redirect('/');
-    
+
     else {
         return (
             <main className='container'>

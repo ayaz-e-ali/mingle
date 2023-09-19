@@ -2,23 +2,82 @@ import { getServerSession } from 'next-auth';
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { prisma } from '@/utils/db';
+import { Prisma } from "@prisma/client";
 import bcrypt from 'bcrypt';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
 
-export const getUserFromNextAuth = async () => {
+/**
+ * 
+ * @param {Boolean} lite 
+ * @param {Number} id 
+ * @returns {Prisma.UserGetPayload<{select: {bio: true,email: true,id: true,image: true,name: true,onboarded: true,userName: true,createdAt: true,DOB: true,followers: true,following: true,location: true,posts: true,}}>}
+ */
+export const getUser = async (lite = false, id = null) => {
+    /**Singleton */
+    if (!id) {
+        if (lite && globalThis.liteUser)
+            return globalThis.liteUser;
+        else if (!lite && globalThis.user)
+            return globalThis.user;
+    }
+
+    let prismaUser = {};
+    let where = {};
+
     try {
-        const { user } = await getServerSession();
-        const prismaUser = await prisma.user.findUnique({
-            where: {
-                email: user.email
-            }
-        });
+        //if user id is provided then fetch that user else fetch the current user
+        if (id) where.id = id;
+        else {
+            const { user } = await getServerSession();
+            where.email = user.email;
+        }
+
+        //fetch based on fetch type
+        if (lite) {
+            prismaUser = await prisma.user.findUnique({
+                where,
+                select: {
+                    id: true,
+                    name: true,
+                    bio: true,
+                    image: true,
+                    onboarded: true,
+                    userName: true,
+                    followers: true,
+                    following: true,
+                },
+
+            });
+            globalThis.liteUser = prismaUser;
+        }
+        else {
+            prismaUser = await prisma.user.findUnique({
+                where,
+                select: {
+                    bio: true,
+                    email: true,
+                    id: true,
+                    image: true,
+                    name: true,
+                    onboarded: true,
+                    userName: true,
+                    createdAt: true,
+                    DOB: true,
+                    followers: true,
+                    following: true,
+                    location: true,
+                    posts: true,
+                },
+            });
+            globalThis.user = prismaUser;
+        }
         return prismaUser;
     } catch (error) {
 
     }
 };
+
 
 /**@type {import('next-auth').AuthOptions} */
 export const authOptions = {
