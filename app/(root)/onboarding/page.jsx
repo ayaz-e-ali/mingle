@@ -8,10 +8,10 @@ export default async function OnBoardingPage() {
     try {
         user = await getUser(true);
     } catch (error) {
-        redirect('/');
+        return redirect('/');
     }
 
-    if (user?.onboarded) redirect('/');
+    if (user?.onboarded) return redirect('/');
 
     else {
         return (

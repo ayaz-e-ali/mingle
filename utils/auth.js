@@ -14,14 +14,6 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
  * @returns {Prisma.UserGetPayload<{select: {bio: true,email: true,id: true,image: true,name: true,onboarded: true,userName: true,createdAt: true,DOB: true,followers: true,following: true,location: true,posts: true,}}>}
  */
 export const getUser = async (lite = false, id = null) => {
-    /**Singleton */
-    if (!id) {
-        if (lite && globalThis.liteUser)
-            return globalThis.liteUser;
-        else if (!lite && globalThis.user)
-            return globalThis.user;
-    }
-
     let prismaUser = {};
     let where = {};
 
@@ -49,7 +41,6 @@ export const getUser = async (lite = false, id = null) => {
                 },
 
             });
-            globalThis.liteUser = prismaUser;
         }
         else {
             prismaUser = await prisma.user.findUnique({
@@ -70,7 +61,6 @@ export const getUser = async (lite = false, id = null) => {
                     posts: true,
                 },
             });
-            globalThis.user = prismaUser;
         }
         return prismaUser;
     } catch (error) {
