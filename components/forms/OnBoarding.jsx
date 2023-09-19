@@ -22,7 +22,7 @@ import { userOnBoard } from '@/utils/actions/user';
 import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
-    name: z.string().min(3),
+    name: z.string().min(3).refine(s => !s.includes(' '), 'No Spaces!'),
     userName: z.string().min(3),
     bio: z.string().min(12)
 });
