@@ -118,6 +118,7 @@ export const authOptions = {
     theme: {
         colorScheme: "auto",
         brandColor: "#fff", // Hex color code
-        buttonText: "#000" // Hex color code
+        buttonText: "#000", // Hex color code
+        logo: '/mingle.svg'
     }
 };
