@@ -30,7 +30,7 @@ export default async function Nav() {
           </Link>
           <div className='relative w-80'>
             <form action='/search'>
-              <Input name='query' placeholder="Search" />
+              <Input name='query' placeholder="Search..." className='placeholder:font-bold placeholder:text-xs' />
               <Search size={'1.5em'} className='absolute top-0 bottom-0 w-6 h-6 my-auto transition-colors text-neutral-600 hover:text-neutral-400 right-3 cursor-pointer' />
             </form>
           </div>
@@ -41,7 +41,7 @@ export default async function Nav() {
               <span >
                 {item.Icon}
               </span>
-              <span className='text-xs'>
+              <span className='text-xs font-bold'>
                 {item.label}
               </span>
             </Link>

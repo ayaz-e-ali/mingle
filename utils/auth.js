@@ -14,6 +14,7 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
  * @returns {Prisma.UserGetPayload<{select: {bio: true,email: true,id: true,image: true,name: true,onboarded: true,userName: true,createdAt: true,DOB: true,followers: true,following: true,location: true,posts: true,}}>}
  */
 export const getUser = async (lite = false, id = null) => {
+    // TODO : cache this thing
     let prismaUser = {};
     let where = {};
 
