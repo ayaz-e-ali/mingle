@@ -56,7 +56,7 @@ model User {
   image     String?
   DOB       DateTime?
   location  String?
-  onboarded Boolean @default(false)
+  onboarded Boolean   @default(false)
 
   emailVerified DateTime?
   accounts      Account[]
@@ -82,6 +82,7 @@ model Post {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   body      String
+  images    String[]
 
   authorId String
   author   User   @relation(fields: [authorId], references: [id])

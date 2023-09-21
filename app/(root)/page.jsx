@@ -5,6 +5,7 @@ import { getUser } from '@/utils/auth';
 import { Suspense } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Link from 'next/link';
+import CreatePost from '@/components/forms/CreatePost';
 
 export default async function Home() {
   const user = await getUser(true);
@@ -41,6 +42,7 @@ export default async function Home() {
         </Card>
       </div>
       <div className="col-span-12 lg:col-span-4 space-y-4">
+        <CreatePost user={user} />
         {
           new Array(40).fill(1).map((item, i) => (
             <Post key={i} />
