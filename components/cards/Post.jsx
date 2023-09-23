@@ -15,7 +15,7 @@ export async function Post({ post, user }) {
     );
 
     const galleryClass = clsx(
-        'grid gap-2 grid-flow-row',
+        'grid gap-2 grid-flow-row child:mx-auto',
         imageCount === 1 && 'grid-cols-1',
         imageCount >= 2 && 'grid-cols-2',
         imageCount === 3 && '[&>*:nth-child(3)]:col-span-2');
