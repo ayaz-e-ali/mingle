@@ -8,6 +8,7 @@ import Link from 'next/link';
 import CreatePost from '@/components/forms/CreatePost';
 import { prisma } from '@/utils/db';
 import { getAvatarFallback } from '@/utils/lib';
+import People from '@/components/cards/People';
 
 export default async function Home() {
   const user = await getUser(true);
@@ -20,6 +21,13 @@ export default async function Home() {
     }
   });
 
+  const people = await prisma.user.findMany({
+    take: 5,
+    where: {
+      id: { not: user?.id }
+    }
+  });
+
   return (
     <main className="grid grid-cols-10 container gap-10">
       <div className="hidden lg:block lg:col-span-3 min-h-[14rem] h-min sticky top-[5.5rem] space-y-4">
@@ -29,22 +37,11 @@ export default async function Home() {
             <CardTitle>People you may know</CardTitle>
           </CardHeader>
           <CardContent className='space-y-2'>
-            <Link href={`/profile/${user?.userName}`} className="flex gap-4 hover:bg-secondary/50 p-2 rounded-md transition-colors">
-              <Avatar>
-                <AvatarImage />
-                <AvatarFallback className='uppercase font-bold'>
-                  {getAvatarFallback(user?.name)}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex flex-col">
-                <CardDescription className='text-foreground font-bold'>
-                  {user?.name}
-                </CardDescription>
-                <CardDescription className='font-bold'>
-                  @{user?.userName}
-                </CardDescription>
-              </div>
-            </Link>
+            {
+              people.map(person => (
+                <People key={person.id} person={person} />
+              ))
+            }
           </CardContent>
         </Card>
       </div>
