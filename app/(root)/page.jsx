@@ -11,7 +11,7 @@ import { getAvatarFallback } from '@/utils/lib';
 import People from '@/components/cards/People';
 
 export default async function Home() {
-  const user = await getUser(true);
+  const user = await getUser();
 
   const posts = await prisma.post.findMany({
     include: {

@@ -47,3 +47,31 @@ export const likePost = async (postId, userId) => {
         revalidatePath('/');
     }
 };
+
+export const follow = async ({ followerId, followingId }) => {
+    const followObj = await prisma.follows.create({
+        data: {
+            followerId,
+            followingId
+        }
+    });
+
+    revalidatePath('/');
+
+    return followObj;
+};
+
+export const unFollow = async ({ followerId, followingId }) => {
+    const followObj = await prisma.follows.delete({
+        where: {
+            followerId_followingId: {
+                followerId,
+                followingId
+            }
+        }
+    });
+
+    revalidatePath('/');
+
+    return followObj;
+};
