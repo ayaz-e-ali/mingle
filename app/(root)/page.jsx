@@ -6,13 +6,20 @@ import { Suspense } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Link from 'next/link';
 import CreatePost from '@/components/forms/CreatePost';
+import { prisma } from '@/utils/db';
+import { getAvatarFallback } from '@/utils/lib';
 
 export default async function Home() {
   const user = await getUser(true);
 
-  const getAvatarFallback = (str) => {
-    return str.split(" ").reduce((acc, item) => acc + item[0], '');
-  };
+  const posts = await prisma.post.findMany({
+    include: {
+      author: true,
+      comments: true,
+      likes: true
+    }
+  });
+
   return (
     <main className="grid grid-cols-10 container gap-10">
       <div className="hidden lg:block lg:col-span-3 min-h-[14rem] h-min sticky top-[5.5rem] space-y-4">
@@ -22,19 +29,19 @@ export default async function Home() {
             <CardTitle>People you may know</CardTitle>
           </CardHeader>
           <CardContent className='space-y-2'>
-            <Link href={`/profile/${user.userName}`} className="flex gap-4 hover:bg-secondary/50 p-2 rounded-md transition-colors">
+            <Link href={`/profile/${user?.userName}`} className="flex gap-4 hover:bg-secondary/50 p-2 rounded-md transition-colors">
               <Avatar>
                 <AvatarImage />
                 <AvatarFallback className='uppercase font-bold'>
-                  {getAvatarFallback(user.name)}
+                  {getAvatarFallback(user?.name)}
                 </AvatarFallback>
               </Avatar>
               <div className="flex flex-col">
                 <CardDescription className='text-foreground font-bold'>
-                  {user.name}
+                  {user?.name}
                 </CardDescription>
                 <CardDescription className='font-bold'>
-                  @{user.userName}
+                  @{user?.userName}
                 </CardDescription>
               </div>
             </Link>
@@ -44,8 +51,8 @@ export default async function Home() {
       <div className="col-span-12 lg:col-span-4 space-y-4">
         <CreatePost user={user} />
         {
-          new Array(40).fill(1).map((item, i) => (
-            <Post key={i} />
+          posts.map(post => (
+            <Post key={post.id} post={post} user={user} />
           ))
         }
       </div>

@@ -8,7 +8,7 @@ import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import FileUpload from './Fileupload';
 
 import { useUploadThing } from '@/utils/uploadthing';
-import { userOnBoard } from '@/utils/actions/user';
+import { userOnBoard } from '@/actions/user';
 import { cn } from "@/utils/cn";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -46,8 +46,8 @@ export default function OnBoarding({ user }) {
             name: user?.name || '',
             userName: user?.userName || '',
             bio: user?.bio || '',
-            DOB: user.DOB || null,
-            location: user.location || ''
+            DOB: (user?.DOB && new Date(user?.DOB)) || new Date(),
+            location: user?.location || ''
         },
     });
 
@@ -60,7 +60,7 @@ export default function OnBoarding({ user }) {
                 const res = await startUpload([image]);
                 if (res && res[0].url) values.image = res[0].url;
             }
-            await userOnBoard(user.id, values);
+            await userOnBoard(user?.id, values);
             router.push('/');
         } catch (error) {
             form.setError('root', { message: `some thing went wrong ${error}` });
@@ -76,7 +76,7 @@ export default function OnBoarding({ user }) {
     return (
         <Form {...form} >
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 lg:w-1/2 mx-auto">
-                <Avatar className='cursor-pointer'> <AvatarImage src={image.size ? URL.createObjectURL(image) : user.image} /></Avatar>
+                <Avatar className='cursor-pointer'> <AvatarImage src={image.size ? URL.createObjectURL(image) : user?.image} /></Avatar>
                 <FileUpload file={image} onDrop={(files) => { setImage(files[0]); setImageChanged(true); }} />
                 <div className="flex gap-4">
                     <FormField

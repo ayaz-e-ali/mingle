@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from 'react-hook-form';
 import { Loader } from 'lucide-react';
-import { register } from '@/utils/actions/auth';
+import { register } from '@/actions/auth';
 import { useState } from 'react';
 import Providers from '../auth/Providers';
 

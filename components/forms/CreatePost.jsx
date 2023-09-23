@@ -9,7 +9,7 @@ import { ImagePlus, Loader } from 'lucide-react';
 import { useState } from 'react';
 import { Separator } from '@/components/ui/separator';
 import FileUpload from './Fileupload';
-import { createPost } from '@/utils/actions/post';
+import { createPost } from '@/actions/post';
 import { uploadFiles, useUploadThing } from '@/utils/uploadthing';
 
 
@@ -38,7 +38,7 @@ export default function CreatePost({ user }) {
         imageUrls = imageUrls.map(image => image.url);
         const post = await createPost(values.body, imageUrls);
         if (post) { //if success then reset
-            setFormPost('');
+            setFormPost({ target: { value: '' } });
             setIsImage(false);
             setImages([]);
         }
@@ -66,7 +66,7 @@ export default function CreatePost({ user }) {
                             <FormItem>
                                 <FormLabel></FormLabel>
                                 <FormControl>
-                                    <Textarea rows={2} className='placeholder:font-bold ' placeholder={`what's on your mind...${user.name.split(' ')[0]}`} onChange={setFormPost} value={post} />
+                                    <Textarea rows={2} className='placeholder:font-bold ' placeholder={`what's on your mind...${user?.name.split(' ')[0]}`} onChange={setFormPost} value={post} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

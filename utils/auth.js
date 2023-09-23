@@ -23,12 +23,12 @@ export const getUser = async (lite = false, id = null) => {
         if (id) where.id = id;
         else {
             const { user } = await getServerSession();
-            where.email = user.email;
+            where.email = user?.email;
         }
 
         //fetch based on fetch type
         if (lite) {
-            prismaUser = await prisma.user.findUnique({
+            prismaUser = await prisma.user?.findUnique({
                 where,
                 select: {
                     id: true,
@@ -44,7 +44,7 @@ export const getUser = async (lite = false, id = null) => {
             });
         }
         else {
-            prismaUser = await prisma.user.findUnique({
+            prismaUser = await prisma.user?.findUnique({
                 where,
                 select: {
                     bio: true,
@@ -92,19 +92,19 @@ export const authOptions = {
                     return null;
                 }
 
-                const user = await prisma.user.findUnique({
+                const user = await prisma.user?.findUnique({
                     where: {
                         email: credentials.email,
                     },
                 });
 
-                if (!user || !(await bcrypt.compare(credentials.password, user.password))) {
+                if (!user || !(await bcrypt.compare(credentials.password, user?.password))) {
                     return null;
                 }
 
                 return {
-                    id: user.id,
-                    email: user.email
+                    id: user?.id,
+                    email: user?.email
                 };
             }
         })
