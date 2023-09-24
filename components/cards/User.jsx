@@ -4,6 +4,7 @@ import { Separator } from '@/components/ui/separator';
 
 export default async function UserCard({ user }) {
 
+
     return (
         <Card>
             <CardHeader>

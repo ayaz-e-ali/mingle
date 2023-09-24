@@ -1,5 +1,4 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import Image from 'next/image';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -10,8 +9,8 @@ import Follow from '../forms/Follow';
 
 export async function Post({ post, user }) {
     const imageCount = post.images.length;
-    const isFollowing = user.following.some(
-        follow => follow.followerId === user.id && follow.followingId === post.authorId
+    const isFollowing = user?.following.some(
+        follow => follow.followerId === user?.id && follow.followingId === post.authorId
     );
 
     const galleryClass = clsx(
@@ -40,7 +39,7 @@ export async function Post({ post, user }) {
                             </CardDescription>
                         </div>
                     </Link>
-                    <Follow authorId={post?.authorId} userId={user.id} isFollowing={isFollowing} />
+                    <Follow authorId={post?.authorId} userId={user?.id} isFollowing={isFollowing} />
                 </div>
                 <CardDescription className='text-base text-foreground'>
                     {post.body}
@@ -52,7 +51,7 @@ export async function Post({ post, user }) {
                 ))}
             </CardContent>
             <CardFooter className="flex justify-between pb-2">
-                <PostLike postId={post.id} userId={user?.id} likes={post.likes} />
+                <PostLike postId={post?.id} userId={user?.id} likes={post.likes} />
             </CardFooter>
         </Card>
     );
