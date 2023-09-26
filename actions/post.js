@@ -75,3 +75,20 @@ export const unFollow = async ({ followerId, followingId }) => {
 
     return followObj;
 };
+
+export const fetchPosts = async (activePage, take) => {
+    const skip = (activePage - 1) * take;
+    const posts = await prisma.post.findMany({
+        include: {
+            author: true,
+            comments: true,
+            likes: true
+        },
+        skip,
+        take,
+    });
+    console.log("posts.length : " + posts.length);
+    console.log("activePage : " + activePage);
+    console.log("take : " + take);
+    return posts;
+};

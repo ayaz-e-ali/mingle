@@ -1,3 +1,4 @@
+'use client';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from 'next/image';
 import Link from 'next/link';
@@ -7,7 +8,7 @@ import clsx from 'clsx';
 import PostLike from '../forms/PostLike';
 import Follow from '../forms/Follow';
 
-export async function Post({ post, user }) {
+export function Post({ post, user }) {
     const imageCount = post.images.length;
     const isFollowing = user?.following.some(
         follow => follow.followerId === user?.id && follow.followingId === post.authorId

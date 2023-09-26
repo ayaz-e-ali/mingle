@@ -7,9 +7,12 @@ import FeedSkeleton from '@/components/skeleton/FeedSkeleton';
 import People from '@/components/sections/People';
 import PeopleSkeleton from '@/components/skeleton/PeopleSkeleton';
 import UserSkeleton from '@/components/skeleton/UserSkeleton';
+import { fetchPosts } from '@/actions/post';
 
 export default async function Home() {
   const user = await getUser();
+
+  const initialPosts = await fetchPosts(1, 3);
 
   return (
     <main className="grid grid-cols-10 container gap-10">
@@ -23,10 +26,10 @@ export default async function Home() {
       </div>
       <div className="col-span-12 lg:col-span-4 space-y-4">
         <Suspense fallback={<FeedSkeleton />}>
-          <Feed user={user} />
+          <Feed user={user} initialPosts={initialPosts} />
         </Suspense>
       </div>
-      <div className="hidden lg:block lg:col-span-3 child:h-fit sticky top-[5.5rem] space-y-4">
+      <div className="hidden lg:block lg:col-span-3 min-h-[14rem] h-min sticky top-[5.5rem] space-y-4">
         <Card>
           <CardHeader>
             <CardTitle>Suggested Users</CardTitle>
