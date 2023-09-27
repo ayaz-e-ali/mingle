@@ -87,8 +87,5 @@ export const fetchPosts = async (activePage, take) => {
         skip,
         take,
     });
-    console.log("posts.length : " + posts.length);
-    console.log("activePage : " + activePage);
-    console.log("take : " + take);
     return posts;
 };

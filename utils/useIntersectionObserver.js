@@ -1,17 +1,19 @@
-const useIntersectionObserver = ({element,threshold = 0},enterCallback,leavedCallback = ()=>{}) => {
+const useIntersectionObserver = ({ element, threshold = 0 }, enterCallback, leavedCallback = () => { }) => {
 
 	const observer = new IntersectionObserver((entries) => {
 		entries.forEach(entry => {
 			if (entry.isIntersecting) {
-				enterCallback()
+				enterCallback();
 			}
 			else {
-				leavedCallback()
+				leavedCallback();
 			}
-		})
-	}, {threshold})
+		});
+	}, { threshold });
 
-	observer.observe(element)
-}
+	observer.observe(element);
 
-export default useIntersectionObserver
+	return observer;
+};
+
+export default useIntersectionObserver;

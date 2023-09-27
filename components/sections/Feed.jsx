@@ -8,25 +8,30 @@ import intersectionObserver from '@/utils/useIntersectionObserver';
 
 export default function Feed({ user, initialPosts }) {
     const [posts, setPosts] = useState(initialPosts);
-    const [page, setPage] = useState(1);
     const [take, setTake] = useState(3);
     const bottom = useRef(null);
+    const [isEnd, setIsEnd] = useState(false);
+    let page = 1;
 
     const loadMore = async () => {
-        const nextPage = page + 1;
+        const nextPage = ++page;
         const postArr = await fetchPosts(nextPage, take);
-        setPosts((prevPosts) => [...prevPosts, ...postArr]);
-        setPage(nextPage);
+        if (postArr.length === 0)
+            setIsEnd(true);
+        else
+            setPosts((prevPosts) => [...prevPosts, ...postArr]);
     };
 
     useEffect(() => {
-        console.log('damn');
-        intersectionObserver({
+        const observer = intersectionObserver({
             element: bottom.current
         }, async () => {
             await loadMore();
-
         });
+
+        return () => {
+            observer.disconnect();
+        };
     }, []);
 
     return (
@@ -38,7 +43,11 @@ export default function Feed({ user, initialPosts }) {
                         <Post key={post.id} post={post} user={user} />
                     ))
                 }
-                <Loader ref={bottom} size={'2.5rem'} className='animate-spin mx-auto' />
+                {
+                    isEnd ?
+                        <p className='text-center w-full py-4'>No more posts available.</p> :
+                        <Loader ref={bottom} size={'2.5rem'} className='animate-spin mx-auto' />
+                }
             </div>
         </>
     );
