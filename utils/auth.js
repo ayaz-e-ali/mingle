@@ -10,17 +10,17 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 /**
  * 
  * @param {Boolean} lite 
- * @param {Number} id 
+ * @param {String} userName
  * @returns {Prisma.UserGetPayload<{select: {bio: true,email: true,id: true,image: true,name: true,onboarded: true,userName: true,createdAt: true,DOB: true,followers: true,following: true,location: true,posts: true,}}>}
  */
-export const getUser = async (lite = false, id = null) => {
+export const getUser = async (lite = false, userName = null) => {
     // TODO : cache this thing
     let prismaUser = {};
     let where = {};
 
     try {
         //if user id is provided then fetch that user else fetch the current user
-        if (id) where.id = id;
+        if (userName) where.userName = userName;
         else {
             const { user } = await getServerSession();
             where.email = user?.email;
@@ -59,7 +59,13 @@ export const getUser = async (lite = false, id = null) => {
                     followers: true,
                     following: true,
                     location: true,
-                    posts: true,
+                    posts: {
+                        include: {
+                            author: true,
+                            comments: true,
+                            likes: true
+                        }
+                    },
                 },
             });
         }

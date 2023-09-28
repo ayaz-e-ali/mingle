@@ -73,8 +73,13 @@
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
     --radius: 0.5rem;
+    
+    --swiper-navigation-color: #000;
+    --swiper-navigation-size: 25px !important;
+    
+    --swiper-pagination-color: #000;
   }
-
+  
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
@@ -95,6 +100,7 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
+    --swiper-navigation-color: #fff;
   }
 }
 
@@ -103,8 +109,13 @@
 }
 
 @layer base {
+
   * {
     @apply border-border;
+  }
+
+  .swiper-pagination-bullet-active {
+    filter: invert(100%) ;
   }
 
   body {
