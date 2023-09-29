@@ -6,6 +6,7 @@ import { getAvatarFallback } from '@/utils/lib';
 import PostLike from '../forms/PostLike';
 import Follow from '../forms/Follow';
 import Carousel from '../utils/Carousel';
+import ShowMore from '../utils/ShowMore';
 
 export function Post({ post, user }) {
     const isFollowing = user?.following.some(
@@ -35,7 +36,7 @@ export function Post({ post, user }) {
                     <Follow authorId={post?.authorId} userId={user?.id} isFollowing={isFollowing} />
                 </div>
                 <CardDescription className='text-base text-foreground'>
-                    {post.body}
+                    <ShowMore content={post.body} />
                 </CardDescription>
             </CardHeader>
             <CardContent >

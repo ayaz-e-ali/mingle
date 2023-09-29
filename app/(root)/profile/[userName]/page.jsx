@@ -1,4 +1,5 @@
 import ProfilePost from '@/components/cards/ProfilePost';
+import ShowMore from '@/components/utils/ShowMore';
 import { getUser } from '@/utils/auth';
 import { LucideEdit3 } from 'lucide-react';
 import Image from 'next/image';
@@ -24,7 +25,7 @@ export default async function Profile({ params }) {
                     <h3 className='text-primary/80 font-semibold'>@{profileUser?.userName}</h3>
                 </div>
                 <p>
-                    {profileUser?.bio}
+                    <ShowMore content={profileUser?.bio} />
                 </p>
                 <div className="flex text-sm space-x-8 child:space-x-1 font-semibold">
                     <p>
@@ -43,7 +44,7 @@ export default async function Profile({ params }) {
                 <h3 className='text-3xl'>Posts</h3>
                 {profileUser.posts.map(post => (
                     <div className="" key={post.id}>
-                        <ProfilePost post={post} user={user}/>
+                        <ProfilePost post={post} user={user} />
                     </div>
                 ))}
             </>
