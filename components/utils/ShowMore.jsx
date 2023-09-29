@@ -17,10 +17,11 @@ export default function ShowMore({ content }) {
             const truncatedContent = content.substring(0, MAX_CHARACTERS) + '...';
 
             return (
-                <>
-                    {truncatedContent}
-                    <Button className="focus-visible:ring-0 p-0 pl-1 font-bold text-primary/80 h-fit tracking-wider" variant='link' onClick={handleToggleExpand}>Load More</Button>
-                </>
+                <p className='inline-block'>{truncatedContent}
+                    <span>
+                        <Button className="focus-visible:ring-0 p-0 pl-1 font-bold text-primary/80 h-fit tracking-wider" variant='link' onClick={handleToggleExpand}>Load More</Button>
+                    </span>
+                </p>
             );
         }
     };

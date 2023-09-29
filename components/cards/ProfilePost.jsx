@@ -1,24 +1,17 @@
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import PostLike from '@/components/forms/PostLike';
 import Image from 'next/image';
-import clsx from 'clsx';
 import Carousel from '../utils/Carousel';
 import { ScrollArea } from '../ui/scroll-area';
 import ShowMore from '../utils/ShowMore';
 
 export default function ProfilePost({ post, user }) {
-    const imageCount = post.images.length;
 
-    const galleryClass = clsx(
-        'grid gap-2 grid-flow-row child:mx-auto',
-        imageCount === 1 && 'grid-cols-1',
-        imageCount >= 2 && 'grid-cols-2',
-        imageCount === 3 && '[&>*:nth-child(3)]:col-span-2');
     return (
         <Dialog>
             <DialogTrigger asChild>
                 <div className="flex gap-6 border p-6 rounded-md cursor-pointer ">
-                    {post.images.length &&
+                    {!!post.images.length &&
                         <Image className='rounded-md aspect-square object-cover' src={post.images[0]} alt={post.id} width={100} height={100} />
                     }
                     <div className="line-clamp-4 max-h-24">

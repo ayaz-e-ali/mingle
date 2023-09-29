@@ -1,4 +1,5 @@
 import ProfilePost from '@/components/cards/ProfilePost';
+import FollowButton from '@/components/utils/FollowButton';
 import ShowMore from '@/components/utils/ShowMore';
 import { getUser } from '@/utils/auth';
 import { LucideEdit3 } from 'lucide-react';
@@ -24,18 +25,14 @@ export default async function Profile({ params }) {
                     <h1 className='text-3xl capitalize'>{profileUser?.name}</h1>
                     <h3 className='text-primary/80 font-semibold'>@{profileUser?.userName}</h3>
                 </div>
-                <p>
-                    <ShowMore content={profileUser?.bio} />
-                </p>
-                <div className="flex text-sm space-x-8 child:space-x-1 font-semibold">
-                    <p>
-                        <span>Followers</span>
-                        <span> {profileUser?.followers.length}</span>
-                    </p>
-                    <p>
-                        <span>Following</span>
-                        <span> {profileUser?.following.length}</span>
-                    </p>
+                <ShowMore content={profileUser?.bio} />
+                <div className="flex text-sm space-x-8">
+                    <FollowButton followList={profileUser?.followers} item={"follower"}>
+                        Followers
+                    </FollowButton>
+                    <FollowButton followList={profileUser?.following} item={"following"}>
+                        Following
+                    </FollowButton>
                 </div>
             </div>
         </div>

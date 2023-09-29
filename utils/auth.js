@@ -56,8 +56,30 @@ export const getUser = async (lite = false, userName = null) => {
                     userName: true,
                     createdAt: true,
                     DOB: true,
-                    followers: true,
-                    following: true,
+                    followers: {
+                        include: {
+                            follower: {
+                                select: {
+                                    id: true,
+                                    name: true,
+                                    userName: true,
+                                    image: true
+                                }
+                            }
+                        }
+                    },
+                    following: {
+                        include: {
+                            following: {
+                                select: {
+                                    id: true,
+                                    name: true,
+                                    userName: true,
+                                    image: true
+                                }
+                            }
+                        }
+                    },
                     location: true,
                     posts: {
                         include: {
