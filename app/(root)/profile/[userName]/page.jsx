@@ -25,7 +25,7 @@ export default async function Profile({ params }) {
                     <h1 className='text-3xl capitalize'>{profileUser?.name}</h1>
                     <h3 className='text-primary/80 font-semibold'>@{profileUser?.userName}</h3>
                 </div>
-                <ShowMore content={profileUser?.bio} />
+                <ShowMore content={profileUser?.bio} asParagraph/>
                 <div className="flex text-sm space-x-8">
                     <FollowButton followList={profileUser?.followers} item={"follower"}>
                         Followers

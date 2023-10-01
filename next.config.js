@@ -8,6 +8,10 @@ const nextConfig = {
             {
                 hostname: 'utfs.io',
                 protocol: 'https',
+            },
+            {
+                hostname: 'avatars.githubusercontent.com',
+                protocol: 'https',
             }
         ]
     }

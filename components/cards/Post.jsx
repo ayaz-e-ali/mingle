@@ -36,7 +36,7 @@ export function Post({ post, user }) {
                     <Follow authorId={post?.authorId} userId={user?.id} isFollowing={isFollowing} />
                 </div>
                 <CardDescription className='text-base text-foreground'>
-                    <ShowMore content={post.body} />
+                    <ShowMore content={post.body} asParagraph={false}/>
                 </CardDescription>
             </CardHeader>
             <CardContent >

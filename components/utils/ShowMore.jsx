@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Button } from '../ui/button';
 
-export default function ShowMore({ content }) {
+export default function ShowMore({ content, asParagraph = true }) {
     const MAX_CHARACTERS = 100;
     const [expanded, setExpanded] = useState(false);
 
@@ -17,16 +17,17 @@ export default function ShowMore({ content }) {
             const truncatedContent = content.substring(0, MAX_CHARACTERS) + '...';
 
             return (
-                <p className='inline-block'>{truncatedContent}
+                <>{truncatedContent}
                     <span>
                         <Button className="focus-visible:ring-0 p-0 pl-1 font-bold text-primary/80 h-fit tracking-wider" variant='link' onClick={handleToggleExpand}>Load More</Button>
                     </span>
-                </p>
+                </>
             );
         }
     };
 
-    return <div>
+    return asParagraph ? <p className='inline-block'>
         {renderContent()}
-    </div>;
+    </p> :
+        <>{renderContent()}</>;
 };
