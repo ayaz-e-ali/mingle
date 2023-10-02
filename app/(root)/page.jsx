@@ -12,7 +12,7 @@ import { fetchPosts } from '@/actions/post';
 export default async function Home() {
   const user = await getUser();
 
-  const initialPosts = await fetchPosts(1, 3);
+  const initialPosts = await fetchPosts(1, 10);
 
   return (
     <main className="grid grid-cols-10 container gap-10">

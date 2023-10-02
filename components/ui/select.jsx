@@ -1,16 +1,18 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import * as SelectPrimitive from "@radix-ui/react-select"
-import { Check, ChevronDown } from "lucide-react"
+import * as React from "react";
+import * as SelectPrimitive from "@radix-ui/react-select";
+import { Check, ChevronDown } from "lucide-react";
 
-import { cn } from "@/utils/cn"
+import { cn } from "@/utils/cn";
+import { ScrollArea } from './scroll-area';
 
-const Select = SelectPrimitive.Root
+const Select = SelectPrimitive.Root;
 
-const SelectGroup = SelectPrimitive.Group
+const SelectGroup = SelectPrimitive.Group;
 
-const SelectValue = SelectPrimitive.Value
+const SelectValue = SelectPrimitive.Value;
+import { setMonth, setYear } from "date-fns";
 
 const SelectTrigger = React.forwardRef(({ className, children, ...props }, ref) => (
   <SelectPrimitive.Trigger
@@ -25,8 +27,8 @@ const SelectTrigger = React.forwardRef(({ className, children, ...props }, ref) 
       <ChevronDown className="h-4 w-4 opacity-50" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
-))
-SelectTrigger.displayName = SelectPrimitive.Trigger.displayName
+));
+SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
 
 const SelectContent = React.forwardRef(({ className, children, position = "popper", ...props }, ref) => (
   <SelectPrimitive.Portal>
@@ -35,7 +37,7 @@ const SelectContent = React.forwardRef(({ className, children, position = "poppe
       className={cn(
         "relative z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
         position === "popper" &&
-          "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
+        "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
         className
       )}
       position={position}
@@ -47,16 +49,16 @@ const SelectContent = React.forwardRef(({ className, children, position = "poppe
       </SelectPrimitive.Viewport>
     </SelectPrimitive.Content>
   </SelectPrimitive.Portal>
-))
-SelectContent.displayName = SelectPrimitive.Content.displayName
+));
+SelectContent.displayName = SelectPrimitive.Content.displayName;
 
 const SelectLabel = React.forwardRef(({ className, ...props }, ref) => (
   <SelectPrimitive.Label
     ref={ref}
     className={cn("py-1.5 pl-8 pr-2 text-sm font-semibold", className)}
     {...props} />
-))
-SelectLabel.displayName = SelectPrimitive.Label.displayName
+));
+SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
 const SelectItem = React.forwardRef(({ className, children, ...props }, ref) => (
   <SelectPrimitive.Item
@@ -74,16 +76,16 @@ const SelectItem = React.forwardRef(({ className, children, ...props }, ref) => 
 
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
   </SelectPrimitive.Item>
-))
-SelectItem.displayName = SelectPrimitive.Item.displayName
+));
+SelectItem.displayName = SelectPrimitive.Item.displayName;
 
 const SelectSeparator = React.forwardRef(({ className, ...props }, ref) => (
   <SelectPrimitive.Separator
     ref={ref}
     className={cn("-mx-1 my-1 h-px bg-muted", className)}
     {...props} />
-))
-SelectSeparator.displayName = SelectPrimitive.Separator.displayName
+));
+SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
 export {
   Select,
@@ -94,4 +96,47 @@ export {
   SelectLabel,
   SelectItem,
   SelectSeparator,
+};
+
+export function YearSelect({ setFormDate, date }) {
+  const currentYear = new Date().getFullYear();
+  const startYear = 1900;
+  const yearsArray = Array.from({ length: currentYear - startYear + 1 }, (_, index) => currentYear - index);
+
+  return <Select onValueChange={(value) => setFormDate(setYear(date || new Date(), parseInt(value)))}>
+    <SelectTrigger>
+      <SelectValue placeholder="Year" />
+    </SelectTrigger>
+    <SelectContent position="popper">
+      <ScrollArea className='h-[200px]'>
+        {yearsArray.map(year => (
+          <SelectItem key={year} value={year}>{year}</SelectItem>
+        ))}
+      </ScrollArea>
+    </SelectContent>
+  </Select>;
+}
+
+export function MonthSelect({ setFormDate, date }) {
+  return <Select onValueChange={(value) => setFormDate(setMonth(date || new Date(), parseInt(value)))}>
+    <SelectTrigger>
+      <SelectValue placeholder="Month" />
+    </SelectTrigger>
+    <SelectContent position="popper">
+      <ScrollArea className='h-[200px]'>
+        <SelectItem value={'0'}>January</SelectItem>
+        <SelectItem value={'1'}>February</SelectItem>
+        <SelectItem value={'2'}>March</SelectItem>
+        <SelectItem value={'3'}>April</SelectItem>
+        <SelectItem value={'4'}>May</SelectItem>
+        <SelectItem value={'5'}>June</SelectItem>
+        <SelectItem value={'6'}>July</SelectItem>
+        <SelectItem value={'7'}>August</SelectItem>
+        <SelectItem value={'8'}>September</SelectItem>
+        <SelectItem value={'9'}>October</SelectItem>
+        <SelectItem value={'10'}>November</SelectItem>
+        <SelectItem value={'11'}>December</SelectItem>
+      </ScrollArea>
+    </SelectContent>
+  </Select>;
 }

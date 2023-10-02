@@ -8,7 +8,7 @@ import intersectionObserver from '@/utils/useIntersectionObserver';
 
 export default function Feed({ user, initialPosts }) {
     const [posts, setPosts] = useState(initialPosts);
-    const [take, setTake] = useState(Math.min(initialPosts.length, 5));
+    const [take, setTake] = useState(Math.min(initialPosts.length, 10));
     const bottom = useRef(null);
     const [isEnd, setIsEnd] = useState(false);
     let page = 1;

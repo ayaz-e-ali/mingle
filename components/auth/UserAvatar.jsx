@@ -29,9 +29,14 @@ export default function UserAvatar({ user }) {
                         <DropdownMenuContent className="w-56">
                             <DropdownMenuLabel>Acount</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <DropdownMenuGroup>
-                                <Link href={'api/auth/signout'} >
+                            <DropdownMenuGroup >
+                                <Link href={`/profile/${user.userName}`} >
                                     <DropdownMenuItem className='cursor-pointer'>
+                                        Profile
+                                    </DropdownMenuItem>
+                                </Link>
+                                <Link href={'api/auth/signout'} >
+                                    <DropdownMenuItem className='cursor-pointer '>
                                         Sign Out
                                     </DropdownMenuItem>
                                 </Link>

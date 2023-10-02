@@ -11,3 +11,12 @@ export const userOnBoard = async (id, data) => {
     revalidatePath('/');
     return user;
 };
+
+export const updateUser = async (id, data, path) => {
+    const user = prisma.user?.update({
+        where: { id },
+        data: { ...data }
+    });
+    revalidatePath(path);
+    return user;
+};

@@ -17,11 +17,10 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { format, setMonth, setYear } from "date-fns";
+import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select";
+import { MonthSelect, YearSelect } from "@/components/ui/select";
 
 const formSchema = z.object({
     name: z.string().min(3),
@@ -172,46 +171,3 @@ export default function OnBoarding({ user }) {
         </Form >
     );
 }
-function YearSelect({ setFormDate, date }) {
-    const currentYear = new Date().getFullYear();
-    const startYear = 1900;
-    const yearsArray = Array.from({ length: currentYear - startYear + 1 }, (_, index) => currentYear - index);
-
-    return <Select onValueChange={(value) => setFormDate(setYear(date || new Date(), parseInt(value)))}>
-        <SelectTrigger>
-            <SelectValue placeholder="Year" />
-        </SelectTrigger>
-        <SelectContent position="popper">
-            <ScrollArea className='h-[200px]'>
-                {yearsArray.map(year => (
-                    <SelectItem key={year} value={year}>{year}</SelectItem>
-                ))}
-            </ScrollArea>
-        </SelectContent>
-    </Select>;
-}
-
-function MonthSelect({ setFormDate, date }) {
-    return <Select onValueChange={(value) => setFormDate(setMonth(date || new Date(), parseInt(value)))}>
-        <SelectTrigger>
-            <SelectValue placeholder="Month" />
-        </SelectTrigger>
-        <SelectContent position="popper">
-            <ScrollArea className='h-[200px]'>
-                <SelectItem value={'0'}>January</SelectItem>
-                <SelectItem value={'1'}>February</SelectItem>
-                <SelectItem value={'2'}>March</SelectItem>
-                <SelectItem value={'3'}>April</SelectItem>
-                <SelectItem value={'4'}>May</SelectItem>
-                <SelectItem value={'5'}>June</SelectItem>
-                <SelectItem value={'6'}>July</SelectItem>
-                <SelectItem value={'7'}>August</SelectItem>
-                <SelectItem value={'8'}>September</SelectItem>
-                <SelectItem value={'9'}>October</SelectItem>
-                <SelectItem value={'10'}>November</SelectItem>
-                <SelectItem value={'11'}>December</SelectItem>
-            </ScrollArea>
-        </SelectContent>
-    </Select>;
-}
-
