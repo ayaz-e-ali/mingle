@@ -84,8 +84,11 @@ export const getUser = async (lite = false, userName = null) => {
                     posts: {
                         include: {
                             author: true,
-                            comments: true,
-                            likes: true
+                            likes: {
+                                include: {
+                                    user: true
+                                }
+                            }
                         }
                     },
                 },

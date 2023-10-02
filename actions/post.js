@@ -48,6 +48,7 @@ export const likePost = async (postId, userId) => {
     }
 };
 
+
 export const follow = async ({ followerId, followingId }) => {
     const followObj = await prisma.follows.create({
         data: {
@@ -81,7 +82,6 @@ export const fetchPosts = async (activePage, take) => {
     const posts = await prisma.post.findMany({
         include: {
             author: true,
-            comments: true,
             likes: true
         },
         skip,

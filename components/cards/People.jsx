@@ -2,10 +2,11 @@ import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { CardDescription } from '../ui/card';
 import { getAvatarFallback } from '@/utils/lib';
+import { cn } from '@/utils/cn';
 
-export default function People({ person }) {
+export default function People({ person, className }) {
     return (
-        <Link href={`/profile/${person?.userName}`} className="flex gap-4 hover:bg-secondary/50 p-2 rounded-md transition-colors">
+        <Link href={`/profile/${person?.userName}`} className={cn("flex gap-4 hover:bg-secondary/50 p-2 rounded-md transition-colors", className)}>
             <Avatar>
                 <AvatarImage src={person?.image} />
                 <AvatarFallback className='uppercase font-bold'>

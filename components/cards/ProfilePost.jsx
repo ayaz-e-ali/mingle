@@ -4,8 +4,11 @@ import Image from 'next/image';
 import Carousel from '../utils/Carousel';
 import { ScrollArea } from '../ui/scroll-area';
 import ShowMore from '../utils/ShowMore';
+import ProfileComment from '../sections/ProfileComment';
+import { fetchComments } from '@/actions/comment';
 
-export default function ProfilePost({ post, user }) {
+export default async function ProfilePost({ post, user }) {
+    const comments = await fetchComments(post.id, 1, 5);
 
     return (
         <Dialog>
@@ -38,10 +41,8 @@ export default function ProfilePost({ post, user }) {
                                 </div>
                             </DialogFooter>
                         </div>
-                        <div className="sm:w-1/2">
-                            <ScrollArea className='h-[500px] mr-4 text-sm'>
-
-                            </ScrollArea>
+                        <div className="sm:w-1/2 mr-4 space-y-4 child:mt-1">
+                            <ProfileComment post={post} user={user} initialComments={comments} />
                         </div>
                     </div>
                 </ScrollArea>
