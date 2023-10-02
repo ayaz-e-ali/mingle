@@ -19,11 +19,11 @@ export default async function Profile({ params }) {
     const editable = user.userName === userName;
 
     return <div className='container mt-4 space-y-20'>
-        <div className="grid grid-cols-10 items-center gap-16 max-w-2xl mx-auto">
-            <div className="relative col-span-3">
+        <div className="grid grid-cols-1 sm:grid-cols-10 justify-center items-center gap-4 sm:gap-16 max-w-2xl mx-auto">
+            <div className="relative sm:col-span-3">
                 <Image className='rounded-full aspect-square object-cover' alt={profileUser?.name} src={profileUser?.image} width={130} height={130} />
             </div>
-            <div className="space-y-4 col-span-7">
+            <div className="space-y-4 sm:col-span-7">
                 <div className="flex gap-2">
                     <div className="">
                         <h1 className='text-3xl capitalize'>{profileUser?.name}</h1>
