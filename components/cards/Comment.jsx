@@ -1,10 +1,11 @@
+import { cn } from '@/utils/cn';
 import CommentLike from '../forms/CommentLike';
 import ShowMore from '../utils/ShowMore';
 import People from './People';
 
-export default function Comment({ comment, user }) {
+export default function Comment({ comment, user, className }) {
     return (
-        <div className="border-l-[6px] pl-3" >
+        <div className={cn("pl-3", className)} >
             <People person={comment.author} className={'hover:bg-transparent col-span-4 scale-y-90 scale-x-95'} />
             <p className='col-span-2 text-xs text-muted-foreground font-semibold'>
                 {comment.createdAt.toLocaleDateString("en-GB", { year: 'numeric', month: 'long', day: 'numeric' })}

@@ -37,10 +37,10 @@ export default function ProfileComment({ post, user, initialComments }) {
     return (
         <>
             <AddComment user={user} post={post} />
-            <ScrollArea className='h-[400px] text-sm child:child:space-y-4'>
+            <ScrollArea className='h-[400px] text-sm '>
                 {
                     comments.map(comment => (
-                        <Comment key={comment.id} comment={comment} user={user} />
+                        <Comment key={comment.id} comment={comment} user={user} className={'border-l-[6px] border-t-0 mt-4'} />
                     ))
                 }
                 {

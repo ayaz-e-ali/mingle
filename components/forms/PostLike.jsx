@@ -28,7 +28,7 @@ export default function PostLike({ postId, userId, likes }) {
 
     return (
         <>
-            <div className="flex items-center">
+            <div className="flex items-center pl-4">
                 <Button className={clsx('rounded-full aspect-square', isLiked && 'child:text-red-700 child:fill-red-700')} size='icon' variant="ghost" onClick={handleClick}>
                     <LucideHeart size={'1.5rem'} />
                 </Button>

@@ -1,12 +1,11 @@
-'use client';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { getAvatarFallback } from '@/utils/lib';
-import PostLike from '../forms/PostLike';
 import Follow from '../forms/Follow';
 import Carousel from '../utils/Carousel';
 import ShowMore from '../utils/ShowMore';
+import PostFotter from './PostFooter';
 
 export function Post({ post, user }) {
     const isFollowing = user?.following.some(
@@ -36,15 +35,13 @@ export function Post({ post, user }) {
                     <Follow authorId={post?.authorId} userId={user?.id} isFollowing={isFollowing} />
                 </div>
                 <CardDescription className='text-base text-foreground'>
-                    <ShowMore content={post.body} asParagraph={false}/>
+                    <ShowMore content={post.body} asParagraph={false} />
                 </CardDescription>
             </CardHeader>
             <CardContent >
                 <Carousel images={post.images} />
             </CardContent>
-            <CardFooter className="flex justify-between pb-2">
-                <PostLike postId={post?.id} userId={user?.id} likes={post.likes} />
-            </CardFooter>
+            <PostFotter post={post} user={user}  />
         </Card>
     );
 }

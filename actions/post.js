@@ -40,8 +40,6 @@ export const likePost = async (postId, userId) => {
                 userId, postId
             }
         });
-
-        revalidatePath('/');
         return post;
     } catch (error) {
         revalidatePath('/');

@@ -14,6 +14,7 @@ export default function AddComment({ post, user }) {
         const { message } = await createComment(comment, user.id, post.id);
         if (message) console.log(message);
         setLoading(false);
+        setComment("");
     };
 
     return (
