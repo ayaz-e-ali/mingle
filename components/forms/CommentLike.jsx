@@ -2,7 +2,7 @@
 import { LucideHeart } from 'lucide-react';
 import { Button } from '../ui/button';
 import { likeComment } from '@/actions/comment';
-import { experimental_useOptimistic as useOptimistic, useState } from 'react';
+import { useOptimistic, useState } from 'react';
 import clsx from 'clsx';
 
 export default function CommentLike({ commentId, userId, likes }) {

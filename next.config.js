@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    experimental: {
-        serverActions: true
-    },
     images: {
         remotePatterns: [
             {
@@ -14,7 +11,15 @@ const nextConfig = {
                 protocol: 'https',
             }
         ]
-    }
+    },
+    async rewrites() {
+        return [
+            {
+                source: "/uploads/:path*",
+                destination: "/uploads/:path*", // Adjust this path based on your project structure
+            },
+        ];
+    },
 };
 
 module.exports = nextConfig;

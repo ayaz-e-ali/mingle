@@ -17,9 +17,12 @@ export default async function Home() {
   return (
     <main className="grid grid-cols-10 container gap-10">
       <div className="hidden lg:block lg:col-span-3 min-h-[14rem] h-min sticky top-[5.5rem] space-y-4">
-        <Suspense fallback={<UserSkeleton />}>
-          <User user={user} />
-        </Suspense>
+        {
+          user &&
+          <Suspense fallback={<UserSkeleton />}>
+            <User user={user} />
+          </Suspense>
+        }
         <Suspense fallback={<PeopleSkeleton />}>
           <People user={user} />
         </Suspense>

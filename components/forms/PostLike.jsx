@@ -2,7 +2,7 @@
 import { LucideHeart } from 'lucide-react';
 import { Button } from '../ui/button';
 import { likePost } from '@/actions/post';
-import { useEffect, experimental_useOptimistic as useOptimistic, useState } from 'react';
+import { useOptimistic, useState } from 'react';
 import clsx from 'clsx';
 
 export default function PostLike({ postId, userId, likes }) {

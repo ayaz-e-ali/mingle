@@ -36,7 +36,9 @@ export default function Feed({ user, initialPosts }) {
 
     return (
         <>
-            <CreatePost user={user} />
+            {user &&
+                <CreatePost user={user} />
+            }
             <div className="space-y-4" >
                 {
                     posts.map(post => (

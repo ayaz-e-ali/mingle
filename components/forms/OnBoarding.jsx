@@ -7,7 +7,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import FileUpload from './Fileupload';
 
-import { useUploadThing } from '@/utils/uploadthing';
 import { userOnBoard } from '@/actions/user';
 import { cn } from "@/utils/cn";
 
@@ -21,6 +20,7 @@ import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover";
 import { MonthSelect, YearSelect } from "@/components/ui/select";
+import { uploadFiles } from "@/utils/uploadFiles";
 
 const formSchema = z.object({
     name: z.string().min(3),
@@ -36,7 +36,6 @@ export default function OnBoarding({ user }) {
     const [image, setImage] = useState(new Blob());
     const [date, setDate] = useState(new Date());
     const [key, setKey] = useState(0);
-    const { startUpload } = useUploadThing('imageUploader');
     const router = useRouter();
 
     const form = useForm({
@@ -56,8 +55,8 @@ export default function OnBoarding({ user }) {
         try {
             setLoading(true);
             if (imageChanged) {
-                const res = await startUpload([image]);
-                if (res && res[0].url) values.image = res[0].url;
+                const urls = await uploadFiles([image]);
+                values.image = urls?.[0] || user?.image;
             }
             await userOnBoard(user?.id, values);
             router.push('/');

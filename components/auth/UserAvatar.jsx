@@ -1,5 +1,5 @@
 'use client';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import {
     DropdownMenu,
@@ -16,6 +16,10 @@ import { Loader } from 'lucide-react';
 
 export default function UserAvatar({ user }) {
     const { status } = useSession();
+
+    const handleSignOut = async () => {
+        signOut({ callbackUrl: "/", redirect: true });
+    }
 
     return (
         status === 'unauthenticated' ?
@@ -35,11 +39,9 @@ export default function UserAvatar({ user }) {
                                         Profile
                                     </DropdownMenuItem>
                                 </Link>
-                                <Link href={'api/auth/signout'} >
-                                    <DropdownMenuItem className='cursor-pointer '>
-                                        Sign Out
-                                    </DropdownMenuItem>
-                                </Link>
+                                <DropdownMenuItem onClick={handleSignOut} className='cursor-pointer '>
+                                    Sign Out
+                                </DropdownMenuItem>
                             </DropdownMenuGroup>
                         </DropdownMenuContent>
                     </DropdownMenu>

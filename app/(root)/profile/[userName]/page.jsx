@@ -9,14 +9,14 @@ import dynamic from 'next/dynamic';
 const EditProfile = dynamic(() => import('@/components/cards/EditProfile'));
 
 export default async function Profile({ params }) {
-    const { userName } = params;
+    const { userName } = await params;
     const profileUser = await getUser(false, userName);
     const user = await getUser(false);
 
     if (!profileUser?.onboarded)
         redirect('/onboarding');
 
-    const editable = user.userName === userName;
+    const editable = user?.userName === userName;
 
     return <div className='container mt-4 space-y-20'>
         <div className="grid grid-cols-1 sm:grid-cols-10 justify-center items-center gap-4 sm:gap-16 max-w-2xl mx-auto">

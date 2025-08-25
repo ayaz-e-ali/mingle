@@ -43,6 +43,9 @@ export const createComment = async (body, authorId, postId, path) => {
                 postId
             }
         });
+        
+        revalidatePath('/');
+
         return comment;
     } catch (error) {
         return { message: error.message };

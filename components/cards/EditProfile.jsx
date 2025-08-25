@@ -6,7 +6,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from 
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 
-import { useUploadThing } from '@/utils/uploadthing';
 import { updateUser } from '@/actions/user';
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,6 +22,7 @@ import { MonthSelect, YearSelect } from "@/components/ui/select";
 import { cn } from '@/utils/cn';
 import { ScrollArea } from '../ui/scroll-area';
 import { usePathname } from 'next/navigation';
+import { uploadFiles } from '@/utils/uploadFiles';
 
 const formSchema = z.object({
     name: z.string().min(3),
@@ -37,7 +37,6 @@ export default function EditProfile({ user }) {
     const [image, setImage] = useState(new Blob());
     const [key, setKey] = useState(0);
     const [date, setDate] = useState(new Date());
-    const { startUpload } = useUploadThing('imageUploader');
     const path = usePathname();
 
     const form = useForm({
@@ -56,8 +55,8 @@ export default function EditProfile({ user }) {
         try {
             setLoading(true);
             if (imageChanged) {
-                const res = await startUpload([image]);
-                if (res && res[0].url) values.image = res[0].url;
+                const urls = await uploadFiles([image]);
+                values.image = urls?.[0] || user?.image;
             }
             await updateUser(user?.id, values, path);
             setLoading(false);
