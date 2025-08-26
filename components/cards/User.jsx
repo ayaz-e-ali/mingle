@@ -10,7 +10,7 @@ export default async function UserCard({ user }) {
             <CardHeader>
                 <CardTitle>Welcome, <span className='capitalize'>{user?.name.split(' ')[0]}</span></CardTitle>
                 <CardDescription>
-                    <Link href={`profile/${user?.userName}`} className='text-link font-bold'>
+                    <Link href={`profile/${user?.userName}`} className='font-bold text-primary'>
                         @{user?.userName}
                     </Link>
                 </CardDescription>

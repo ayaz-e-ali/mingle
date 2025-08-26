@@ -6,7 +6,7 @@ import { cn } from '@/utils/cn';
 
 export default function People({ person, className }) {
     return (
-        <Link href={`/profile/${person?.userName}`} className={cn("flex gap-4 hover:bg-secondary/50 p-2 rounded-md transition-colors", className)}>
+        <Link href={`/profile/${person?.userName}`} className={cn("flex gap-4 hover:bg-primary/30 p-2 rounded-md transition-colors", className)}>
             <Avatar>
                 <AvatarImage src={person?.image} />
                 <AvatarFallback className='uppercase font-bold'>
@@ -17,7 +17,7 @@ export default function People({ person, className }) {
                 <CardDescription className='text-foreground font-bold'>
                     {person?.name}
                 </CardDescription>
-                <CardDescription className='font-bold'>
+                <CardDescription className='font-bold text-primary'>
                     @{person?.userName}
                 </CardDescription>
             </div>

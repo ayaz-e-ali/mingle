@@ -5,7 +5,7 @@ import { getAvatarFallback } from '@/utils/lib';
 import Follow from '../forms/Follow';
 import Carousel from '../utils/Carousel';
 import ShowMore from '../utils/ShowMore';
-import PostFotter from './PostFooter';
+import PostFooter from './PostFooter';
 
 export function Post({ post, user }) {
     const isFollowing = user?.following.some(
@@ -27,7 +27,7 @@ export function Post({ post, user }) {
                             <CardTitle className='text-base tracking-wide'>
                                 {post.author?.name}
                             </CardTitle>
-                            <CardDescription className='font-bold'>
+                            <CardDescription className='font-bold text-primary'>
                                 @{post.author?.userName}
                             </CardDescription>
                         </div>
@@ -41,7 +41,7 @@ export function Post({ post, user }) {
             <CardContent >
                 <Carousel images={post.images} />
             </CardContent>
-            <PostFotter post={post} user={user}  />
+            <PostFooter post={post} user={user} />
         </Card>
     );
 }

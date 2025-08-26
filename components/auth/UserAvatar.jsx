@@ -31,7 +31,7 @@ export default function UserAvatar({ user }) {
                             <Avatar className='cursor-pointer'> <AvatarImage src={user?.image || ''} /><AvatarFallback src={user?.name} /> </Avatar>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="w-56">
-                            <DropdownMenuLabel>Acount</DropdownMenuLabel>
+                            <DropdownMenuLabel>Account</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuGroup >
                                 <Link href={`/profile/${user.userName}`} >

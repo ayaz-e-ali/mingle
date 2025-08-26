@@ -16,7 +16,7 @@ export default async function Profile({ params }) {
     if (!profileUser?.onboarded)
         redirect('/onboarding');
 
-    const editable = user?.userName === userName;
+    const isCurrentUserProfile  = user?.userName === userName;
 
     return <div className='container mt-4 space-y-20'>
         <div className="grid grid-cols-1 sm:grid-cols-10 justify-center items-center gap-4 sm:gap-16 max-w-2xl mx-auto">
@@ -30,7 +30,7 @@ export default async function Profile({ params }) {
                         <h3 className='text-primary/80 font-semibold'>@{profileUser?.userName}</h3>
                     </div>
                     {
-                        editable &&
+                        isCurrentUserProfile  &&
                         <EditProfile user={user} />
                     }
                 </div>
@@ -48,11 +48,20 @@ export default async function Profile({ params }) {
         <div className="max-w-xl mx-auto space-y-4">
             <>
                 <h3 className='text-3xl'>Posts</h3>
-                {profileUser.posts.map(post => (
-                    <div className="" key={post.id}>
-                        <ProfilePost post={post} user={user} />
+                {profileUser.posts && profileUser.posts.length > 0 ? (
+                    <>
+                        {profileUser.posts.map(post => (
+                            <div key={post.id}>
+                                <ProfilePost isCurrentUserProfile={isCurrentUserProfile} post={post} user={user} />
+                            </div>
+                        ))}
+                    </>
+                ) : (
+                    <div className="text-center py-8 text-muted-foreground">
+                        <p className="text-lg">No posts yet</p>
+                        <p className="text-sm">When {profileUser.userName} shares something, it&apos;ll show up here.</p>
                     </div>
-                ))}
+                )}
             </>
         </div>
     </div>;

@@ -87,3 +87,41 @@ export const fetchPosts = async (activePage, take) => {
     });
     return posts;
 };
+
+export const deletePost = async (postId, path) => {
+    return await prisma.$transaction(async (tx) => {
+        // 1. First, delete all comment likes associated with comments of this post
+        await tx.commentLikes.deleteMany({
+            where: {
+                comment: {
+                    postId: postId,
+                },
+            },
+        });
+
+        // 2. Delete all comments associated with the post
+        await tx.comment.deleteMany({
+            where: {
+                postId: postId,
+            },
+        });
+
+        // 3. Delete all post likes associated with the post
+        await tx.postLikes.deleteMany({
+            where: {
+                postId: postId,
+            },
+        });
+
+        // 4. Finally, delete the post itself
+        const deletedPost = await tx.post.delete({
+            where: {
+                id: postId,
+            },
+        });
+
+        revalidatePath(path);
+        
+        return deletedPost;
+    });
+}

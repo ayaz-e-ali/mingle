@@ -7,7 +7,7 @@ import { useState } from 'react';
 import AddComment from '../forms/AddCommnet';
 import PostComments from './PostComments';
 
-export default function PostFotter({ post, user }) {
+export default function PostFooter({ post, user }) {
     const [showComment, setShowComment] = useState(false);
 
     return (

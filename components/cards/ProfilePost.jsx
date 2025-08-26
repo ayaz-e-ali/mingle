@@ -6,23 +6,28 @@ import { ScrollArea } from '../ui/scroll-area';
 import ShowMore from '../utils/ShowMore';
 import ProfileComment from '../sections/ProfileComment';
 import { fetchComments } from '@/actions/comment';
+import PostOptions from "./PostOptions";
 
-export default async function ProfilePost({ post, user }) {
+export default async function ProfilePost({ post, user, isCurrentUserProfile }) {
     const comments = await fetchComments(post.id, 1, 5);
 
     return (
         <Dialog>
-            <DialogTrigger asChild>
-                <div className="flex gap-6 border p-6 rounded-md cursor-pointer ">
-                    {!!post.images.length &&
-                        <Image className='rounded-md aspect-square object-cover' src={post.images[0]} alt={post.id} width={100} height={100} />
-                    }
-                    <div className="line-clamp-4 max-h-24">
-                        {post.body}
+            <div className="flex border p-6 rounded-md cursor-pointer relative">
+                <DialogTrigger asChild>
+                    <div className="w-full flex gap-6 mr-4">
+                        {!!post.images.length &&
+                            <Image className='rounded-md aspect-square object-cover' src={post.images[0]} alt={post.id} width={100} height={100} />
+                        }
+                        <div className="line-clamp-4 max-h-24">
+                            {post.body}
+                        </div>
                     </div>
+                </DialogTrigger>
+                <div className="absolute right-4">
+                    <PostOptions isCurrentUserProfile={isCurrentUserProfile} postId={post.id} />
                 </div>
-            </DialogTrigger>
-
+            </div>
             <DialogContent className='sm:min-w-[725px] '>
                 <ScrollArea className='h-[500px]'>
                     <div className="flex flex-col gap-4 sm:flex-row">
