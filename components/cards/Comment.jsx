@@ -12,7 +12,7 @@ export default function Comment({ comment, user, className }) {
             </p>
             <div className="mt-3 space-y-2">
                 <ShowMore content={comment.body} />
-                <CommentLike commentId={comment.id} userId={user.id} likes={comment.likes} />
+                <CommentLike commentId={comment?.id} userId={user?.id} likes={comment.likes} />
             </div>
         </div>
     );

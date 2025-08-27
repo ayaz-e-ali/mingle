@@ -32,7 +32,10 @@ export function Post({ post, user }) {
                             </CardDescription>
                         </div>
                     </Link>
-                    <Follow authorId={post?.authorId} userId={user?.id} isFollowing={isFollowing} />
+                    {
+                        user?.id &&
+                        <Follow authorId={post?.authorId} userId={user?.id} isFollowing={isFollowing} />
+                    }
                 </div>
                 <CardDescription className='text-base text-foreground'>
                     <ShowMore content={post.body} asParagraph={false} />

@@ -4,17 +4,23 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { Loader } from 'lucide-react';
 import { createComment } from '@/actions/comment';
+import { useRouter } from 'next/navigation';
 
 export default function AddComment({ post, user }) {
     const [comment, setComment] = useState("");
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
     const handleClick = async () => {
-        setLoading(true);
-        const { message } = await createComment(comment, user.id, post.id);
-        if (message) console.log(message);
-        setLoading(false);
-        setComment("");
+        if (!user?.id) router.push('api/auth/signin');
+
+        else {
+            setLoading(true);
+            const { message } = await createComment(comment, user.id, post.id);
+            if (message) console.log(message);
+            setLoading(false);
+            setComment("");
+        }
     };
 
     return (

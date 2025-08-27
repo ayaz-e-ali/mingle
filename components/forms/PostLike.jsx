@@ -4,10 +4,12 @@ import { Button } from '../ui/button';
 import { likePost } from '@/actions/post';
 import { useOptimistic, useState } from 'react';
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
 
 export default function PostLike({ postId, userId, likes }) {
     const [isLiked, setIsLiked] = useState(likes.some(like => like.userId === userId));
-
+    const router = useRouter();
+    
     const [optimisticLikes, addOptimisticLikes] = useOptimistic(
         likes,
         (state, userId) => {
@@ -21,9 +23,14 @@ export default function PostLike({ postId, userId, likes }) {
 
 
     const handleClick = async () => {
-        addOptimisticLikes(userId);
-        setIsLiked(!isLiked);
-        await likePost(postId, userId);
+        if (!userId) router.push('api/auth/signin');
+
+        else {
+
+            addOptimisticLikes(userId);
+            setIsLiked(!isLiked);
+            await likePost(postId, userId);
+        }
     };
 
     return (
