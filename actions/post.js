@@ -19,30 +19,33 @@ export const createPost = async (body, images) => {
 
 export const likePost = async (postId, userId) => {
     try {
-        let post;
-        const liked = await prisma.postLikes.findUnique({
-            where: {
-                postId_userId: {
-                    postId, userId
-                }
-            }
+        const existing = await prisma.postLikes.findUnique({
+            where: { postId_userId: { postId, userId } }
         });
-        if (!!liked)
-            post = await prisma.postLikes.delete({
-                where: {
-                    postId_userId: {
-                        postId, userId
-                    }
-                }
+
+        if (existing)
+            await prisma.postLikes.delete({
+                where: { postId_userId: { postId, userId } }
             });
-        else post = await prisma.postLikes.create({
-            data: {
-                userId, postId
-            }
-        });
-        return post;
+        else
+            await prisma.postLikes.create({
+                data: { postId, userId }
+            });
+
+
+        // Compute server truth to return
+        const count = await prisma.postLikes.count({ where: { postId } });
+
+        const isLiked = !!(await prisma.postLikes.findUnique({
+            where: { postId_userId: { postId, userId } }
+        }));
+
+        // optionally revalidate the route in background so server components will update later
+        revalidatePath(`/`);
+        return { count, isLiked };
     } catch (error) {
-        revalidatePath('/');
+        console.error('likePostAction error', error);
+        throw error;
     }
 };
 
@@ -121,7 +124,7 @@ export const deletePost = async (postId, path) => {
         });
 
         revalidatePath(path);
-        
+
         return deletedPost;
     });
 }

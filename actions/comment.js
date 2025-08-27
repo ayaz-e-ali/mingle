@@ -4,32 +4,31 @@ import { revalidatePath } from 'next/cache';
 
 export const likeComment = async (commentId, userId, path) => {
     try {
-        let comment;
-        const liked = await prisma.commentLikes.findUnique({
-            where: {
-                commentId_userId: {
-                    commentId, userId
-                }
-            }
+        const existing = await prisma.commentLikes.findUnique({
+            where: { commentId_userId: { commentId, userId } }
         });
-        if (!!liked)
-            comment = await prisma.commentLikes.delete({
-                where: {
-                    commentId_userId: {
-                        commentId, userId
-                    }
-                }
+
+        if (existing)
+            await prisma.commentLikes.delete({
+                where: { commentId_userId: { commentId, userId } }
             });
-        else comment = await prisma.commentLikes.create({
-            data: {
-                userId, commentId
-            }
-        });
-        if (path) {
-            revalidatePath(path);
-        }
-        return comment;
+
+        else
+            await prisma.commentLikes.create({
+                data: { userId, commentId }
+            });
+
+        // Compute server truth to return
+        const count = await prisma.commentLikes.count({ where: { commentId } });
+        const isLiked = !!(await prisma.commentLikes.findUnique({
+            where: { commentId_userId: { commentId, userId } }
+        }));
+
+        revalidatePath(path);
+
+        return { count, isLiked };
     } catch (error) {
+        console.log(`Error liking comment: ${error},${error.stack}`);
         revalidatePath(path);
     }
 };
@@ -43,7 +42,7 @@ export const createComment = async (body, authorId, postId, path) => {
                 postId
             }
         });
-        
+
         revalidatePath('/');
 
         return comment;
