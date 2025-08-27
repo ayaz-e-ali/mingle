@@ -2,17 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 /* sunset-glow */
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 224 71% 4%;
-    --card: 0 0% 100%;
-    --card-foreground: 224 71% 4%;
+    --foreground: 224 71% 2%;
+    --card: 214 32% 96%;
+    --card-foreground: 224 71% 2%;
     --popover: 0 0% 100%;
-    --popover-foreground: 224 71% 4%;
+    --popover-foreground: 224 71% 2%;
     --primary: 28 90% 55%;   
     --primary-foreground: 0 0% 100%;
     --secondary: 275 80% 60%; 
@@ -29,11 +27,11 @@
     --radius: 0.5rem;
   }
   .dark {
-    --background: 224 71% 4%;
+    --background: 224 71% 2%;
     --foreground: 210 40% 98%;
-    --card: 224 71% 4%;
+    --card: 224 71% 5%;
     --card-foreground: 210 40% 98%;
-    --popover: 224 71% 4%;
+    --popover: 224 71% 2%;
     --popover-foreground: 210 40% 98%;
     --primary: 28 85% 60%;
     --primary-foreground: 0 0% 100%;
@@ -45,7 +43,7 @@
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 50%;
     --destructive-foreground: 0 0% 100%;
-    --border: 217 33% 17%;
+    --border: 224 71% 15%;
     --input: 217 33% 17%;
     --ring: 28 85% 60%;
   }
@@ -58,7 +56,7 @@
 @layer base {
 
   * {
-    @apply border-border;
+    @apply border-border outline-none;
   }
 
   .swiper-pagination-bullet-active {

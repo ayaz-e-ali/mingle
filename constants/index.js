@@ -1,14 +1,14 @@
-import { HomeIcon, Search, User2 } from 'lucide-react';
+import { HomeIcon, LucideUser } from 'lucide-react';
 
 export const NavbarLinks = [
     {
         Icon: <HomeIcon size={'1.5rem'} />,
-        route: "/",
+        route: '/',
         label: "Home",
     },
     {
-        Icon: <Search size={'1.5rem'} />,
-        route: "/search",
-        label: "Search",
+        Icon: <LucideUser size={'1.5rem'} />,
+        route: `/profile`,
+        label: "Profile",
     }
 ];

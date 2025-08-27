@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import ThemeToggle from './ThemeToggle';
 import { NavbarLinks } from '@/constants';
-import { Input } from '../ui/input';
-import { Search } from 'lucide-react';
 import UserAvatar from '../auth/UserAvatar';
 import { getUser } from '@/utils/auth';
+import Search from '../forms/Search';
+
 
 export default async function Nav() {
   const user = await getUser(true);
@@ -29,10 +29,7 @@ export default async function Nav() {
             </h1>
           </Link>
           <div className='relative w-80'>
-            <form action='/search'>
-              <Input name='query' placeholder="Search..." className='placeholder:font-bold placeholder:text-xs' />
-              <Search size={'1.5em'} className='absolute top-0 bottom-0 w-6 h-6 my-auto transition-colors text-neutral-600 hover:text-neutral-400 right-3 cursor-pointer' />
-            </form>
+            <Search />
           </div>
         </div>
         <div className='lg:flex hidden justify-center items-center gap-8 '>

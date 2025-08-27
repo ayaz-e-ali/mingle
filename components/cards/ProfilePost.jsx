@@ -7,13 +7,14 @@ import ShowMore from '../utils/ShowMore';
 import ProfileComment from '../sections/ProfileComment';
 import { fetchComments } from '@/actions/comment';
 import PostOptions from "./PostOptions";
+import { Card } from "../ui/card";
 
 export default async function ProfilePost({ post, user, isCurrentUserProfile }) {
     const comments = await fetchComments(post.id, 1, 5);
 
     return (
         <Dialog>
-            <div className="flex border p-6 rounded-md cursor-pointer relative">
+            <Card className="flex border p-6 rounded-md cursor-pointer relative">
                 <DialogTrigger asChild>
                     <div className="w-full flex gap-6 mr-4">
                         {!!post.images.length &&
@@ -27,7 +28,7 @@ export default async function ProfilePost({ post, user, isCurrentUserProfile }) 
                 <div className="absolute right-4">
                     <PostOptions isCurrentUserProfile={isCurrentUserProfile} postId={post.id} />
                 </div>
-            </div>
+            </Card>
             <DialogContent className='sm:min-w-[725px] '>
                 <ScrollArea className='h-[500px]'>
                     <div className="flex flex-col gap-4 sm:flex-row">

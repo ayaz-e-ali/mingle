@@ -11,6 +11,7 @@ import { Separator } from '@/components/ui/separator';
 import FileUpload from './Fileupload';
 import { createPost } from '@/actions/post';
 import { uploadFiles } from "@/utils/uploadFiles";
+import { Card } from "../ui/card";
 
 
 const formSchema = z.object({
@@ -55,7 +56,7 @@ export default function CreatePost({ user }) {
     };
 
     return (
-        <div className='border rounded-md px-6 py-4 space-y-4'>
+        <Card className='border rounded-md px-6 py-4 space-y-4'>
             <Form {...form} >
                 <form onSubmit={form.handleSubmit(onSubmit)} >
                     <FormField
@@ -65,7 +66,7 @@ export default function CreatePost({ user }) {
                             <FormItem>
                                 <FormLabel></FormLabel>
                                 <FormControl>
-                                    <Textarea rows={2} className='placeholder:font-bold ' placeholder={`what's on your mind...${user?.name.split(' ')[0] || ""}`} onChange={setFormPost} value={post} />
+                                    <Textarea rows={2} className='placeholder:font-bold bg-background/40' placeholder={`what's on your mind...${user?.name.split(' ')[0] || ""}`} onChange={setFormPost} value={post} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -88,6 +89,6 @@ export default function CreatePost({ user }) {
                     </Button>
                 </div>
             </Form>
-        </div>
+        </Card>
     );
 }
