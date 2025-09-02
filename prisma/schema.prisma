@@ -67,7 +67,7 @@ model User {
   posts        Post[]
   postLikes    PostLikes[]
   commentLikes CommentLikes[]
-  comments      Comment[]
+  comments     Comment[]
 }
 
 model Follows {

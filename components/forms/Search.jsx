@@ -29,7 +29,7 @@ export default function Search() {
         setLoading(true);
 
         if (value) setShowCard(true);
-        
+
         (async () => {
             let response;
             if (value) response = await search(value)
@@ -48,7 +48,6 @@ export default function Search() {
                         <h2 className='child:inline text-center text-sm text-muted-foreground font-bold'>Search results for &quot;{value}&quot;
                             {loading && <Loader className="animate-spin" />}
                         </h2>
-
                         <div className="flex flex-col w-full">
                             {results?.users?.length > 0 &&
                                 results.users.map(user =>
