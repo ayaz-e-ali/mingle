@@ -23,7 +23,7 @@ export default function CreatePost({ user }) {
     const [isImage, setIsImage] = useState(false);
     const [post, setPost] = useState('');
     const [images, setImages] = useState([]);
-    
+
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -34,7 +34,10 @@ export default function CreatePost({ user }) {
     /**@param {z.infer<typeof formSchema>} values  */
     async function onSubmit(values) {
         setLoading(true);
-        let imageUrls = await uploadFiles(images);
+        var imageUrls = [];
+        if (images.length !== 0) {
+            imageUrls = await uploadFiles(images);
+        }
 
         const post = await createPost(values.body, imageUrls);
         if (post) { //if success then reset
