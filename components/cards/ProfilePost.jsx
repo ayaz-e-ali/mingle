@@ -18,7 +18,7 @@ export default async function ProfilePost({ post, user, isCurrentUserProfile }) 
                 <DialogTrigger asChild>
                     <div className="w-full flex gap-6 mr-4">
                         {!!post.images.length &&
-                            <Image className='rounded-md aspect-square object-cover' src={post.images[0]} alt={post.id} width={100} height={100} />
+                            <Image className='rounded-md aspect-square object-cover' unoptimized src={`${process.env.NEXT_PUBLIC_BASE_URL}${post.images[0]}`} alt={post.id} width={100} height={100} />
                         }
                         <div className="line-clamp-4 max-h-24">
                             {post.body}

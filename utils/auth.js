@@ -147,6 +147,22 @@ export const authOptions = {
     adapter: PrismaAdapter(prisma),
     session: { strategy: 'jwt' },
     debug: process.env.NODE_ENV === 'production',
+    trustHost: true,
+    callbacks: {
+        // Prevent redirects to unintended hosts (e.g., localhost)
+        redirect({ url, baseUrl }) {
+            try {
+                const target = new URL(url, baseUrl);
+                // Allow relative URLs
+                if (url.startsWith('/')) return url;
+                // Same-origin redirects only
+                if (target.origin === baseUrl) return target.toString();
+            } catch (_) {
+                // If URL parsing fails, fall back to baseUrl
+            }
+            return baseUrl;
+        },
+    },
     theme: {
         colorScheme: "auto",
         brandColor: "#fff", // Hex color code

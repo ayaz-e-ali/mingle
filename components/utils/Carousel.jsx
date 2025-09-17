@@ -13,7 +13,7 @@ export default function Carousel({ images }) {
         >
             {images.map(image => (
                 <SwiperSlide key={image}>
-                    <Image src={image} width={280} height={100} style={{ aspectRatio: '1 / 1.3' }} className='object-cover rounded-sm mx-auto' alt='post' />
+                    <Image unoptimized src={`${process.env.NEXT_PUBLIC_BASE_URL}${image}`} width={280} height={100} style={{ aspectRatio: '1 / 1.3' }} className='object-cover rounded-sm mx-auto' alt='post' />
                 </SwiperSlide>
             ))}
         </Swiper>
