@@ -6,6 +6,11 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+export const metadata = {
+  title: "mingle",
+  description: "social media platform created by ayaz al-ali",
+};
+
 const inter = Inter({ subsets: ['latin'] });
 export default function RootLayout({ children }) {
   return (
